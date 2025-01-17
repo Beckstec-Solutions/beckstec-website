@@ -4,7 +4,6 @@ import path from "path";
 
 export default defineConfig({
   plugins: [solidPlugin()],
-  base: "beckstec-website",
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
   resolve: {
     alias: {
