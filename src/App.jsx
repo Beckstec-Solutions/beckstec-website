@@ -9,28 +9,23 @@ import Footer from "./components/Footer";
 
 import next from "./assets/next.png";
 import prev from "./assets/prev.png";
+import stat1 from "./assets/stats/1.png";
+import stat2 from "./assets/stats/2.png";
+import stat3 from "./assets/stats/3.png";
+import stat4 from "./assets/stats/4.png";
+
+import team1 from "./assets/team/1.png";
 
 function App() {
   const [testimonialIndex, setTestimonialIndex] = createSignal(0);
   const [testimonials, setTestimonials] = createSignal([
     {
-      text: "Testimonial 1",
-      author: "Marvin Gibbs 1",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s",
-      role: "Founder - Agri Tech",
+      text: "Results-driven mechanical engineer and entrepreneur with experience in engineering, human resources, and business management.Proven track record of driving business growth, improving operational efficiency, and leading high- performing teams.",
+      author: "ISAIAH BAJI",
+      image: team1,
+      role: "MANAGING DIRECTOR",
     },
-    {
-      text: "Testimonial 2",
-      author: "Marvin Gibbs 2",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s",
-      role: "Founder - Agri Tech",
-    },
-    {
-      text: "Testimonial 3",
-      author: "Marvin Gibbs 3",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s",
-      role: "Founder - Agri Tech",
-    },
+
   ]);
 
 
@@ -113,22 +108,22 @@ function App() {
 
       {/* Digital Marketing Services Section */}
       <section id="digital-services" class="px-[10px] md:px-[120px] py-16 bg-gray-50">
-        <h3 class="text-5xl font-bold text-black mb-8">Digital Marketing Services</h3>
+        {/* <h3 class="text-5xl font-bold text-black mb-8">Digital Marketing Services</h3> */}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="border p-6 rounded-md shadow-md">
-            <h4 class="text-xl font-bold">PPC</h4>
-            <p class="text-gray-600 mt-2">Lorem ipsum dolor amet, consectetur adipiscing elit.</p>
-            <a href="#" class="text-primary mt-4 inline-block">Explore →</a>
+            <h4 class="text-xl font-bold">Software Consulting</h4>
+            <p class="text-gray-600 mt-2"> Offering strategic guidance to align IT infrastructure with long-term objectives.</p>
+            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <h4 class="text-xl font-bold">SEO</h4>
-            <p class="text-gray-600 mt-2">Lorem ipsum dolor amet, consectetur adipiscing elit.</p>
-            <a href="#" class="text-primary mt-4 inline-block">Explore →</a>
+            <h4 class="text-xl font-bold">Data Analysis </h4>
+            <p class="text-gray-600 mt-2">Transforming raw data into actionable insights for informed decision-making.</p>
+            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <h4 class="text-xl font-bold">Content Writing</h4>
-            <p class="text-gray-600 mt-2">Lorem ipsum dolor amet, consectetur adipiscing elit.</p>
-            <a href="#" class="text-primary mt-4 inline-block">Explore →</a>
+            <h4 class="text-xl font-bold">Suppliers of IT Equipment and Accessories</h4>
+            <p class="text-gray-600 mt-2">Offering high-quality IT products to support your infrastructure.</p>
+            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
         </div>
       </section>
@@ -149,16 +144,14 @@ function App() {
           </div>
         </section> */}
 
-        {/* Client Testimonials Section */}
-        <section class="py-10 bg-primary text-white">
+        {/*Team Section */}
+        <section id="team" class="py-10 bg-primary text-white">
           <div class="flex md:justify-around flex-col md:text-left text-center w-full justify-center md:flex-row mb-8 px-[10px] md:px-[120px]">
             <div class="flex flex-col items- md:w-[40%] w-full justify-start">
-              <p class="font-light text-lg mb-2">TESTIMONIALS</p>
-              <h2 class="text-3xl md:text-5xl font-bold my-2">What Our Clients Say About Us</h2>
-              <p class="text-lg text">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </p>
+              <p class="font-light text-lg mb-2"></p>
+              <h2 class="text-4xl md:text-7xl font-bold my-2">Our Team
+                At Beckstec
+                Solutions</h2>
               <div class="flex justify-center md:justify-start gap-5 mt-5">
                 <div onclick={() => {
                   setTestimonialIndex((prev) => {
@@ -185,8 +178,8 @@ function App() {
               </div>
             </div>
 
-            <div class="max-w-xl w-full flex flex-col justify-between my-5 mx-auto bg-white text-black rounded p-6 shadow">
-              <p class="mb-4 font-semibold text-lg text-left">{testimonials()[testimonialIndex()].text}</p>
+            <div class="max-w-xl w-full flex flex-col justify-between my-5 mx-auto bg-white text-black rounded-lg py-12 p-6 shadow">
+              <p class="mb-4 font-semibold text-xl text-left">{testimonials()[testimonialIndex()].text}</p>
               <div class="flex items-center">
                 {/* Image */}
                 <img class="h-10 w-10 bg-gray-300 rounded-full mr-4" src={testimonials()[testimonialIndex()].image} alt="" />
@@ -200,21 +193,25 @@ function App() {
           {/* Stats Section */}
           <section class="w-full relative flex py-[30px] justify-center">
             <div class="py-10 w-[90%] md:w-[70%] text-gray-700 rounded-xl m-auto absolute z-20 bg-gray-100">
-              <div class="grid grid-cols-2 md:flex justify-around text-center">
-                <div>
-                  <p class="text-3xl font-bold">7+</p>
+              <div class="grid grid-cols-2 md:flex justify-around items-center text-center">
+                <div class="flex flex-col items-center">
+                  <img src={stat1} alt="" srcset="" />
+                  <p class="text-3xl md:text-4xl font-black">2</p>
                   <p class="text-sm">Years of Services</p>
                 </div>
-                <div>
-                  <p class="text-3xl font-bold">5+</p>
+                <div class="flex flex-col items-center">
+                  <img src={stat2} alt="" srcset="" />
+                  <p class="text-3xl md:text-4xl font-black">1</p>
                   <p class="text-sm">Global Offices</p>
                 </div>
-                <div>
-                  <p class="text-3xl font-bold">96%</p>
+                <div class="flex flex-col items-center">
+                  <img src={stat3} alt="" srcset="" />
+                  <p class="text-3xl md:text-4xl font-black">90%</p>
                   <p class="text-sm">Customer Retention</p>
                 </div>
-                <div>
-                  <p class="text-3xl font-bold">200+</p>
+                <div class="flex flex-col items-center">
+                  <img src={stat4} alt="" srcset="" />
+                  <p class="text-3xl md:text-4xl font-black">5+</p>
                   <p class="text-sm">Projects</p>
                 </div>
               </div>
@@ -225,7 +222,7 @@ function App() {
 
       <div class="">
         {/* Join Our Team Section */}
-        <section class="py-20 pt-[160px] md:pt-[120px] text-center bg-gray-50">
+        <section class="py-20 pt-[220px] md:pt-[160px] text-center bg-gray-50">
           <h2 class="text-5xl md:text-7xl font-bold mb-4">Join Our Team</h2>
           <p class="text-gray-600 text-lg font-light md:text-xl mb-8">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
