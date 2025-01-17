@@ -4,7 +4,7 @@ import path from "path";
 
 export default defineConfig({
   base: '/',
-  plugins: [solidPlugin(), solid({adapter: staticAdapter()})],
+  plugins: [solidPlugin()],
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
   resolve: {
     alias: {
