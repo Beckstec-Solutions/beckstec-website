@@ -1,19 +1,19 @@
-import { createSignal, from } from "solid-js";
-import bigLogo from "./assets/big_logo.png";
-import aboutImg from "./assets/about.png";
-import serv1 from "./assets/serv1.png";
-import serv2 from "./assets/serv2.png";
-import serv3 from "./assets/serv3.png";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import mail from "./assets/mail.png";
+import { createSignal } from "solid-js";
+import aboutImg from "@assets/about.png";
+import bigLogo from "@assets/big_logo.png";
+import serv1 from "@assets/serv1.png";
+import serv2 from "@assets/serv2.png";
+import serv3 from "@assets/serv3.png";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import mail from "@assets/mail.png";
 
-import stat1 from "./assets/stats/1.png";
-import stat2 from "./assets/stats/2.png";
-import stat3 from "./assets/stats/3.png";
-import stat4 from "./assets/stats/4.png";
+import stat1 from "@assets/stats/1.png";
+import stat2 from "@assets/stats/2.png";
+import stat3 from "@assets/stats/3.png";
+import stat4 from "@assets/stats/4.png";
 
-import team1 from "./assets/team/1.png";
+import team1 from "@assets/team/1.png";
 import { Brain, Shield, Award, Heart, Lightbulb, Users, ArrowLeft, ArrowRight } from 'lucide-solid';
 
 function App() {
@@ -282,7 +282,7 @@ function App() {
           </div>
 
           {/* Newsletter Section */}
-          <div class="bg-[url('./assets/BG.png')] bg-no-repeat bg-center bg-cover from-orange-400 to-orange-500 rounded-xl p-8 lg:p-12">
+          <div class="bg-[url('@assets/BG.png')] bg-no-repeat bg-center bg-cover from-orange-400 to-orange-500 rounded-xl p-8 lg:p-12">
             <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
               <img
                 src={mail}
