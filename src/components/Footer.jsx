@@ -1,9 +1,9 @@
 
-import logo from "../assets/logo.png";
-import insta from "../assets/social/insta.png";
-import fb from "../assets/social/fb.png";
-import twi from "../assets/social/twi.png";
-import lin from "../assets/social/lin.png";
+import logo from "@assets/logo.png";
+import insta from "@assets/social/insta.png";
+import fb from "@assets/social/fb.png";
+import twi from "@assets/social/twi.png";
+import lin from "@assets/social/lin.png";
 
 function Footer() {
 	return (
@@ -71,7 +71,7 @@ function Footer() {
 				<div>
 					<h3 class="text-lg font-semibold mb-4">Reach Us</h3>
 					<ul class="text-gray-600 space-y-2">
-						<li>📧 info@beckstecsolutions.biz</li>
+						<li>📧 infobeckstecsolutions.biz</li>
 						<li>📞 +233 530 509 163</li>
 						<li>📞 +233 547 605 037</li>
 						<li>📍 IPS Road 76, ARS Roundabout, East Legon</li>

@@ -1,6 +1,6 @@
 import { createSignal, onMount } from "solid-js";
-import logo from "../assets/logo.png";
-import logoText from "../assets/logotext.png";
+import logo from "@assets/logo.png";
+import logoText from "@assets/logotext.png";
 
 function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = createSignal(false);
