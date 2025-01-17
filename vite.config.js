@@ -3,7 +3,8 @@ import solidPlugin from 'vite-plugin-solid';
 import path from "path";
 
 export default defineConfig({
-  plugins: [solidPlugin()],
+  base: '/',
+  plugins: [solidPlugin(), solid({adapter: staticAdapter()})],
   assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg'],
   resolve: {
     alias: {
