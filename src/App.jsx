@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, from } from "solid-js";
 import bigLogo from "./assets/big_logo.png";
 import aboutImg from "./assets/about.png";
 import serv1 from "./assets/serv1.png";
@@ -6,18 +6,19 @@ import serv2 from "./assets/serv2.png";
 import serv3 from "./assets/serv3.png";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import mail from "./assets/mail.png";
 
-import next from "./assets/next.png";
-import prev from "./assets/prev.png";
 import stat1 from "./assets/stats/1.png";
 import stat2 from "./assets/stats/2.png";
 import stat3 from "./assets/stats/3.png";
 import stat4 from "./assets/stats/4.png";
 
 import team1 from "./assets/team/1.png";
+import { Brain, Shield, Award, Heart, Lightbulb, Users, ArrowLeft, ArrowRight } from 'lucide-solid';
 
 function App() {
   const [testimonialIndex, setTestimonialIndex] = createSignal(0);
+  const [email, setEmail] = createSignal('')
   const [testimonials, setTestimonials] = createSignal([
     {
       text: "Results-driven mechanical engineer and entrepreneur with experience in engineering, human resources, and business management.Proven track record of driving business growth, improving operational efficiency, and leading high- performing teams.",
@@ -161,7 +162,7 @@ function App() {
                     return prev - 1
                   })
                 }} class="hover:cursor-pointer w-12 h-12 rounded-full opacity-30 bg-black flex justify-center items-center">
-                  <img src={prev} alt="previous" class="" />
+                  <ArrowLeft class="w-6 h-6 text-white" />
                 </div>
                 <div onclick={
                   () => {
@@ -173,7 +174,7 @@ function App() {
                     })
                   }
                 } class="hover:cursor-pointer w-12 h-12 rounded-full opacity-30 bg-black flex justify-center items-center ">
-                  <img src={next} alt="next" />
+                  <ArrowRight class="w-6 h-6 text-white" />
                 </div>
               </div>
             </div>
@@ -221,11 +222,105 @@ function App() {
       </div>
 
       <div class="">
+        {/* Our DNA Section */}
+        <div class="max-w-7xl pt-[300px] md:pt-[200px] mx-auto px-4 py-12 sm:px-6 lg:px-8">
+          <h1 class="text-5xl font-bold mb-2 md:mb-8">Our DNA</h1>
+
+          <div class="relative grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {/* Dotted line background */}
+            <div class="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent 
+                      [mask-image:linear-gradient(90deg,transparent,white_4px,transparent_0)] [mask-size:8px_100%] [mask-repeat:repeat]" />
+
+            {/* Value Cards */}
+            <div class="relative bg-white p-6 rounded-lg text-center z-10">
+              <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                <Brain class="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Adaptability</h2>
+              <p class="text-gray-600">Adapting to the strings of trends with our novel bag of strategies.</p>
+            </div>
+
+            <div class="relative bg-white p-6 rounded-lg text-center z-10">
+              <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                <Shield class="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Integrity</h2>
+              <p class="text-gray-600">We uphold transparency, honesty, and ethical practices.</p>
+            </div>
+
+            <div class="relative bg-white p-6 rounded-lg text-center z-10">
+              <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                <Award class="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Excellence</h2>
+              <p class="text-gray-600">we always strive for the highest standards of quality in every</p>
+            </div>
+
+            <div class="relative bg-white p-6 rounded-lg text-center z-10">
+              <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                <Heart class="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Customer-Centric Approach</h2>
+              <p class="text-gray-600">we Prioritise our clients' needs and deliver solutions that exceed their expectations</p>
+            </div>
+
+            <div class="relative bg-white p-6 rounded-lg text-center z-10">
+              <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                <Lightbulb class="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Innovation</h2>
+              <p class="text-gray-600">We Embrace creativity to solve challenges and deliver exceptional solutions.</p>
+            </div>
+
+            <div class="relative bg-white p-6 rounded-lg text-center z-10">
+              <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
+                <Users class="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 class="text-xl font-semibold mb-2">Collaboration</h2>
+              <p class="text-gray-600">We foster teamwork to achieve shared success.</p>
+            </div>
+          </div>
+
+          {/* Newsletter Section */}
+          <div class="bg-[url('./assets/BG.png')] bg-no-repeat bg-center bg-cover from-orange-400 to-orange-500 rounded-xl p-8 lg:p-12">
+            <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+              <img
+                src={mail}
+                alt="Newsletter"
+                class="w-32 h-auto"
+              />
+              <div class="md:pl-12 text-center md:text-left text-white">
+                <h2 class="text-3xl font-bold mb-6">
+                  Subscribe to our newsletter and get the latest updated.
+                </h2>
+                <form onSubmit={() => { }} class="flex flex-col sm:flex-row gap-4 items-center p-6 bg-gray-100 rounded-lg shadow-md max-w-lg">
+                  <input
+                    type="email"
+                    placeholder="Your work email address"
+                    value={email()}
+                    onChange={(e) => setEmail(e.target.value)}
+                    class="flex-1 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700 placeholder-gray-400"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    class="bg-primary hover:bg-orange-400 text-white px-6 py-3 rounded-lg font-medium shadow-md transition-all focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  >
+                    Subscribe
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="">
         {/* Join Our Team Section */}
-        <section class="py-20 pt-[220px] md:pt-[160px] text-center bg-gray-50">
+        <section class="py-20 pt-[50px] md:pt-[100px] text-center bg-gray-50">
           <h2 class="text-5xl md:text-7xl font-bold mb-4">Join Our Team</h2>
-          <p class="text-gray-600 text-lg font-light md:text-xl mb-8">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          <p class="text-gray-600 text-lg font-normal md:text-xl mb-8">
+            Ready for a new challenge? join our innovative team and be part of something amazing!
           </p>
           <button class="px-6 py-3 bg-primary text-white font-semibold rounded hover:bg-primary">
             Careers →
