@@ -27,7 +27,7 @@ function Header() {
 		<>
 			{/* Navbar */}
 			<header
-				class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full py-4 border-b border-gray-200 bg-white  px-[10px] md:px-[120px]"
+				class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full py-2 border-b-[0.2rem] border-orange-700 bg-white  px-[10px] md:px-[50px]"
 			>
 				<div class="flex items-center">
 					<img src={logo} alt="Beckstec Logo" class="h-10 w-10 md:h-16 md:w-16" />
@@ -37,7 +37,7 @@ function Header() {
 					<a href="#about" class="text-gray-700 hover:text-primary">About us</a>
 					<a href="#services" class="text-gray-700 hover:text-primary">Our services</a>
 					<a href="#contact" class="text-gray-700 hover:text-primary">Contact us</a>
-					<a href="#team" class="text-gray-700 hover:text-primary">Our Team</a>
+					<a href="#team" class="text-gray-700 font-bold hover:text-primary">Our Team</a>
 				</nav>
 				<button
 					class="md:hidden text-gray-700"
