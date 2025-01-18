@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, onCleanup, onMount } from "solid-js";
 import aboutImg from "@assets/about.png";
 import bigLogo from "@assets/big_logo.png";
 import serv1 from "@assets/serv1.png";
@@ -78,13 +78,25 @@ function App() {
     },
   ]);
 
+  onMount(() => {
+    const interval = setInterval(() => {
+      setTestimonialIndex((prev) => {
+        if (prev === testimonials().length - 1) {
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 7000);
+    onCleanup(() => clearInterval(interval));
+  });
+
   return (
     <div class="bg-white">
       <Header />
       {/* Hero Section */}
-      <main class="md:px-[150px] flex flex-col items-center justify-between text-center px-8 pt-[150px] pb-16 md:flex-row sm:justify-between  ">
+      <main id="welcome" class="md:px-[150px] flex flex-col items-center justify-between text-center px-8 pt-[150px] pb-16 md:flex-row sm:justify-between  ">
         {/* Text Content */}
-        <div class=" order-2 md:order-1 max-w-lg flex flex-col justify-center items-center ">
+        <div class=" order-2 w-full md:w-[50%] md:order-1 max-w-lg flex flex-col justify-center items-center ">
           <p class="text-[3rem] md:text-[4rem] font-bold">Welcome to</p>
           <div class=" flex flex-col justify-center items-center ">
             <p class="text-primary text-[5rem] mt-[-2rem] md:mt-[-3rem] font-bold md:text-[7rem]">
@@ -94,17 +106,18 @@ function App() {
               solutions
             </p>
           </div>
-          <p class="mt-2 text-gray-800 text-2xl">
+          <p class="mt-2 text-gray-800 text-2xl italic">
             ...solutions in the digital era
           </p>
         </div>
 
         {/* Logo */}
-        <div class="mt-8 md:mt-0 order-1 ">
+        <div class="w-full flex justify-center items-center md:w-[50%] mb-3 md:mt-0 order-1 ">
           <img
             src={bigLogo}
             alt="Logo"
             class="md:h-[350px] md:w-[350px] h-[220px] w-[220px]"
+            loading="lazy"
           />
         </div>
       </main>
@@ -115,11 +128,11 @@ function App() {
         class="bg-primary text-white px-8 py-16 md:flex md:items-center md:justify-around"
       >
         {/* <div class="grid grid-cols-2 grid-center gap-4 md:w-1/2"> */}
-        <img src={aboutImg} alt="about image" />
+        <img src={aboutImg} alt="about image" loading="lazy" />
         {/* </div> */}
         <div class="mt-8 md:mt-0 md:w-1/2 md:pl-8">
           <h3 class="text-3xl font-bold mb-4">About us</h3>
-          <p class="text-lg leading-relaxed">
+          <p class="text-lg text-left leading-relaxed">
             Beckstec Solutions is a dynamic and progressive technology company
             based in East Legon, Ghana. We are dedicated to empowering
             businesses with cutting-edge IT solutions that drive growth,
@@ -149,7 +162,7 @@ function App() {
         <h3 class="text-5xl font-bold mb-8">Our Services</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv1} class="mb-4" alt="Software Development" />
+            <img src={serv1} class="mb-4" alt="Software Development" loading="lazy" />
             <h4 class="text-xl font-bold my-2">Software Development</h4>
             <p class="text-gray-600 mt-2">
               We create online platforms where businesses can sell products or
@@ -160,7 +173,7 @@ function App() {
             {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv2} class="mb-4" alt="Digital Marketing" />
+            <img src={serv2} class="mb-4" alt="Digital Marketing" loading="lazy" />
             <h4 class="text-xl font-bold my-2">Digital Marketing</h4>
             <p class="text-gray-600 mt-2">
               We build and maintain websites. It includes frontend development
@@ -170,7 +183,7 @@ function App() {
             {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv3} class="mb-4" alt="Cybersecurity" />
+            <img src={serv3} class="mb-4" alt="Cybersecurity" loading="lazy" />
             <h4 class="text-xl my-2 font-bold">Cybersecurity</h4>
             <ol class="text-gray-600 mt-2">
               <li>Physical Security Integration</li>
@@ -275,16 +288,17 @@ function App() {
             </div>
 
             <div class="max-w-xl w-full flex flex-col justify-between my-5 mx-auto bg-white text-black rounded-lg py-12 p-6 shadow">
-              <p class="mb-4 font-semibold text-lg text-justify">
+              <p class="mb-4 font-semibold text-lg text-left">
                 {testimonials()[testimonialIndex()].text}
               </p>
               <div class="flex  items-center ">
                 {/* Image */}
-                <div class="flex h-[3rem] w-[3rem] items-center bg-gray-300 rounded-full mr-4">
+                <div class="flex h-[3.5rem] w-[3.5rem] items-center bg-gray-300 rounded-full mr-4">
                   <img
                     class="h-full w-full rounded-full  "
                     src={testimonials()[testimonialIndex()].image}
                     alt="Profile"
+                    loading="lazy"
                   />
                 </div>
                 <div>
@@ -303,22 +317,22 @@ function App() {
             <div class="py-10 w-[90%] md:w-[70%] text-gray-700 rounded-xl m-auto absolute z-20 bg-gray-100">
               <div class="grid grid-cols-2 md:flex justify-around items-center text-center">
                 <div class="flex flex-col items-center">
-                  <img src={stat1} alt="" srcset="" />
+                  <img src={stat1} alt="" srcset="" loading="lazy" />
                   <p class="text-3xl md:text-4xl font-black">2</p>
                   <p class="text-sm">Years of Services</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat2} alt="" srcset="" />
+                  <img src={stat2} alt="" srcset="" loading="lazy"/>
                   <p class="text-3xl md:text-4xl font-black">1</p>
                   <p class="text-sm">Global Offices</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat3} alt="" srcset="" />
+                  <img src={stat3} alt="" srcset="" loading="lazy" />
                   <p class="text-3xl md:text-4xl font-black">90%</p>
                   <p class="text-sm">Customer Retention</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat4} alt="" srcset="" />
+                  <img src={stat4} alt="" srcset="" loading="lazy" />
                   <p class="text-3xl md:text-4xl font-black">5+</p>
                   <p class="text-sm">Projects</p>
                 </div>
@@ -460,7 +474,7 @@ function App() {
       {/* Floating Button */}
       <div class="fixed z-50 md:origin-center md:rotate-[270deg] right-4 md:right-[-2rem] bottom-4 md:bottom-auto md:top-1/2 transform md:-translate-y-1/2">
         <a
-          href="#quote"
+          href="#welcome"
           class="block bg-black text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-gray-800"
         >
           Get a Quote →
