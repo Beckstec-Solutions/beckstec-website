@@ -211,7 +211,7 @@ function App() {
 
       {/* Software Development Services Section */}
       <section id="services" class="px-[10px] md:px-[120px] py-16">
-        <h3 class="text-5xl font-bold mb-8">Our Services</h3>
+        <h3 class="text-3xl font-bold mb-4">Our Services</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="border p-6 rounded-md shadow-md">
             <img
@@ -314,10 +314,10 @@ function App() {
         {/*Team Section */}
         <section id="team" class="py-10 bg-primary text-white">
           <div class="flex md:justify-around flex-col md:text-left text-center w-full justify-center md:flex-row mb-8 px-[10px] md:px-[120px]">
-            <div class="flex flex-col items- md:w-[40%] w-full justify-start">
+            <div class="flex flex-col items-center md:w-[40%] w-full justify-center">
               <p class="font-light text-lg mb-2"></p>
               <h2 class="text-4xl md:text-5xl font-bold my-2">
-                Our Team At Beckstec Solutions
+                Our Team 
               </h2>
               <div class="flex justify-center md:justify-start gap-5 mt-5">
                 <div
@@ -413,7 +413,7 @@ function App() {
       <div class="">
         {/* Our DNA Section */}
         <div class="max-w-7xl pt-[300px] md:pt-[200px] mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <h1 class="text-5xl font-bold mb-2 md:mb-8">Our DNA</h1>
+          <h1 class="text-4xl font-bold mb-2 md:mb-6">Our DNA</h1>
 
           <div class="relative grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {/* Dotted line background */}
@@ -425,7 +425,7 @@ function App() {
             {/* Value Cards */}
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Brain class="w-8 h-8 text-gray-600" />
+                <Brain class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Adaptability</h2>
               <p class="text-gray-600">
@@ -436,7 +436,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Shield class="w-8 h-8 text-gray-600" />
+                <Shield class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Integrity</h2>
               <p class="text-gray-600">
@@ -446,7 +446,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Award class="w-8 h-8 text-gray-600" />
+                <Award class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Excellence</h2>
               <p class="text-gray-600">
@@ -456,7 +456,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Heart class="w-8 h-8 text-gray-600" />
+                <Heart class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">
                 Customer-Centric Approach
@@ -469,7 +469,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Lightbulb class="w-8 h-8 text-gray-600" />
+                <Lightbulb class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Innovation</h2>
               <p class="text-gray-600">
@@ -480,7 +480,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Users class="w-8 h-8 text-gray-600" />
+                <Users class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Collaboration</h2>
               <p class="text-gray-600">
@@ -525,7 +525,7 @@ function App() {
       <div class="">
         {/* Join Our Team Section */}
         <section class="py-20 pt-[50px] md:pt-[100px] text-center bg-gray-50">
-          <h2 class="text-5xl md:text-7xl font-bold mb-4">Join Our Team</h2>
+          <h2 class="text-5xl md:text-5xl font-bold mb-4">Join Our Team</h2>
           <p class="text-gray-600 text-lg font-normal md:text-xl mb-8">
             Ready for a new challenge? join our innovative team and be part of
             something amazing!
