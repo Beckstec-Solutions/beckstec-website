@@ -1,4 +1,5 @@
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { createSignal, onCleanup, onMount, For } from "solid-js";
+import { motion, useInView } from "framer-motion";
 import aboutImg from "@assets/about.png";
 import bigLogo from "@assets/big_logo.png";
 import serv1 from "@assets/serv1.png";
@@ -78,6 +79,7 @@ function App() {
     },
   ]);
 
+
   onMount(() => {
     const interval = setInterval(() => {
       setTestimonialIndex((prev) => {
@@ -89,24 +91,74 @@ function App() {
     }, 7000);
     onCleanup(() => clearInterval(interval));
   });
+  const AnimatedCounter = ({ targetNumber }) => {
+    const [number, setNumber] = createSignal(0);
+    let ref;
+
+    const startAnimation = () => {
+      let start = 0;
+      const duration = 2000;
+      const step = (timestamp) => {
+        const progress = Math.min((timestamp - start) / duration, 1);
+        setNumber(Math.floor(progress * targetNumber));
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+      requestAnimationFrame((timestamp) => {
+        start = timestamp;
+        step(timestamp);
+      });
+    };
+
+    onMount(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            startAnimation();
+            observer.disconnect(); // Stop observing once animation starts
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      if (ref) {
+        observer.observe(ref);
+      }
+
+      onCleanup(() => observer.disconnect());
+    });
+
+    return (
+      <div ref={ref}>
+        <p class="text-3xl md:text-4xl font-black">{number()}</p>
+      </div>
+    );
+  };
+  
 
   return (
     <div class="bg-white">
       <Header />
       {/* Hero Section */}
-      <main id="welcome" class="md:px-[150px] flex flex-col items-center justify-between text-center px-8 pt-[150px] pb-16 md:flex-row sm:justify-between  ">
+      <main
+        id="welcome"
+        class="md:px-[150px] flex flex-col items-center justify-between text-center px-8 pt-[150px] pb-16 md:flex-row sm:justify-between  "
+      >
         {/* Text Content */}
         <div class=" order-2 w-full md:w-[50%] md:order-1 max-w-lg flex flex-col justify-center items-center ">
-          <p class="text-[3rem] md:text-[4rem] font-bold">Welcome to</p>
+          <p class="text-[3rem] md:text-[4rem] font-bold font-lato">
+            Welcome to
+          </p>
           <div class=" flex flex-col justify-center items-center ">
-            <p class="text-primary text-[5rem] mt-[-2rem] md:mt-[-3rem] font-bold md:text-[7rem]">
+            <p class="text-primary text-[5rem] mt-[-2rem] md:mt-[-3rem] font-bold font-lato md:text-[7rem]">
               Beckstec
             </p>
-            <p class="mt-[-2rem] md:mt-[-2.5rem] w-full text-right text-gray-800 text-2xl">
+            <p class="mt-[-2rem] md:mt-[-2.5rem] w-full text-right text-gray-800 font-lato text-2xl">
               solutions
             </p>
           </div>
-          <p class="mt-2 text-gray-800 text-2xl italic">
+          <p class="mt-2 text-gray-800 text-2xl font-lato italic">
             ...solutions in the digital era
           </p>
         </div>
@@ -132,7 +184,7 @@ function App() {
         {/* </div> */}
         <div class="mt-8 md:mt-0 md:w-1/2 md:pl-8">
           <h3 class="text-3xl font-bold mb-4">About us</h3>
-          <p class="text-lg text-left leading-relaxed">
+          <p class="text-lg text-left leading-relaxed font-lato">
             Beckstec Solutions is a dynamic and progressive technology company
             based in East Legon, Ghana. We are dedicated to empowering
             businesses with cutting-edge IT solutions that drive growth,
@@ -162,7 +214,12 @@ function App() {
         <h3 class="text-5xl font-bold mb-8">Our Services</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv1} class="mb-4" alt="Software Development" loading="lazy" />
+            <img
+              src={serv1}
+              class="mb-4"
+              alt="Software Development"
+              loading="lazy"
+            />
             <h4 class="text-xl font-bold my-2">Software Development</h4>
             <p class="text-gray-600 mt-2">
               We create online platforms where businesses can sell products or
@@ -173,7 +230,12 @@ function App() {
             {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv2} class="mb-4" alt="Digital Marketing" loading="lazy" />
+            <img
+              src={serv2}
+              class="mb-4"
+              alt="Digital Marketing"
+              loading="lazy"
+            />
             <h4 class="text-xl font-bold my-2">Digital Marketing</h4>
             <p class="text-gray-600 mt-2">
               We build and maintain websites. It includes frontend development
@@ -288,7 +350,7 @@ function App() {
             </div>
 
             <div class="max-w-xl w-full flex flex-col justify-between my-5 mx-auto bg-white text-black rounded-lg py-12 p-6 shadow">
-              <p class="mb-4 font-semibold text-lg text-left">
+              <p class="mb-4 font-semibold text-base text-left">
                 {testimonials()[testimonialIndex()].text}
               </p>
               <div class="flex  items-center ">
@@ -318,22 +380,28 @@ function App() {
               <div class="grid grid-cols-2 md:flex justify-around items-center text-center">
                 <div class="flex flex-col items-center">
                   <img src={stat1} alt="" srcset="" loading="lazy" />
-                  <p class="text-3xl md:text-4xl font-black">2</p>
+                  <AnimatedCounter targetNumber={2} />
                   <p class="text-sm">Years of Services</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat2} alt="" srcset="" loading="lazy"/>
-                  <p class="text-3xl md:text-4xl font-black">1</p>
+                  <img src={stat2} alt="" srcset="" loading="lazy" />
+                  <AnimatedCounter targetNumber={1} />
                   <p class="text-sm">Global Offices</p>
                 </div>
                 <div class="flex flex-col items-center">
                   <img src={stat3} alt="" srcset="" loading="lazy" />
-                  <p class="text-3xl md:text-4xl font-black">90%</p>
+                  <div class="flex">
+                    <AnimatedCounter targetNumber={90} />
+                    <span class="text-3xl md:text-4xl font-black">%</span>
+                  </div>
                   <p class="text-sm">Customer Retention</p>
                 </div>
                 <div class="flex flex-col items-center">
                   <img src={stat4} alt="" srcset="" loading="lazy" />
-                  <p class="text-3xl md:text-4xl font-black">5+</p>
+                  <div class="flex">
+                    <AnimatedCounter targetNumber={5} />
+                    <span class="text-3xl md:text-4xl font-black">+</span>
+                  </div>
                   <p class="text-sm">Projects</p>
                 </div>
               </div>

@@ -28,7 +28,9 @@ export default {
         '9xl': '8rem',
       },
       fontFamily: {
-        sans: ['Roboto', 'ui-sans-serif', 'system-ui'],
+        // sans: ['Roboto', 'ui-sans-serif', 'system-ui'],
+        lato: ['Lato', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },
