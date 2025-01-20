@@ -1,4 +1,5 @@
-import { createSignal } from "solid-js";
+import { createSignal, onCleanup, onMount, For } from "solid-js";
+import { motion, useInView } from "framer-motion";
 import aboutImg from "@assets/about.png";
 import bigLogo from "@assets/big_logo.png";
 import serv1 from "@assets/serv1.png";
@@ -78,33 +79,97 @@ function App() {
     },
   ]);
 
+
+  onMount(() => {
+    const interval = setInterval(() => {
+      setTestimonialIndex((prev) => {
+        if (prev === testimonials().length - 1) {
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 7000);
+    onCleanup(() => clearInterval(interval));
+  });
+  const AnimatedCounter = ({ targetNumber }) => {
+    const [number, setNumber] = createSignal(0);
+    let ref;
+
+    const startAnimation = () => {
+      let start = 0;
+      const duration = 2000;
+      const step = (timestamp) => {
+        const progress = Math.min((timestamp - start) / duration, 1);
+        setNumber(Math.floor(progress * targetNumber));
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+      requestAnimationFrame((timestamp) => {
+        start = timestamp;
+        step(timestamp);
+      });
+    };
+
+    onMount(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            startAnimation();
+            observer.disconnect(); // Stop observing once animation starts
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      if (ref) {
+        observer.observe(ref);
+      }
+
+      onCleanup(() => observer.disconnect());
+    });
+
+    return (
+      <div ref={ref}>
+        <p class="text-3xl md:text-4xl font-black">{number()}</p>
+      </div>
+    );
+  };
+  
+
   return (
     <div class="bg-white">
       <Header />
       {/* Hero Section */}
-      <main class="md:px-[150px] flex flex-col items-center justify-between text-center px-8 pt-[150px] pb-16 md:flex-row sm:justify-between  ">
+      <main
+        id="welcome"
+        class="flex flex-col items-center justify-between text-center pt-[150px] pb-16 md:flex-row sm:justify-between  "
+      >
         {/* Text Content */}
-        <div class=" order-2 md:order-1 max-w-lg flex flex-col justify-center items-center ">
-          <p class="text-[3rem] md:text-[4rem] font-bold">Welcome to</p>
+        <div class=" order-2 w-full md:w-[50%] md:order-1 max-w-lg flex flex-col justify-center items-center ">
+          <p class="text-[3rem] md:text-[4rem] font-bold font-lato">
+            Welcome to
+          </p>
           <div class=" flex flex-col justify-center items-center ">
-            <p class="text-primary text-[5rem] mt-[-2rem] md:mt-[-3rem] font-bold md:text-[7rem]">
+            <p class="text-primary text-[5rem] mt-[-2rem] md:mt-[-3rem] font-bold font-lato md:text-[7rem]">
               Beckstec
             </p>
-            <p class="mt-[-2rem] md:mt-[-2.5rem] w-full text-right text-gray-800 text-2xl">
+            <p class="mt-[-2rem] md:mt-[-2.5rem] w-full text-right text-gray-800 font-lato text-2xl">
               solutions
             </p>
           </div>
-          <p class="mt-2 text-gray-800 text-2xl">
+          <p class="mt-2 text-gray-800 text-2xl font-lato italic">
             ...solutions in the digital era
           </p>
         </div>
 
         {/* Logo */}
-        <div class="mt-8 md:mt-0 order-1 ">
+        <div class="w-full flex justify-center items-center md:w-[50%] mb-3 md:mt-0 order-1 ">
           <img
             src={bigLogo}
             alt="Logo"
             class="md:h-[350px] md:w-[350px] h-[220px] w-[220px]"
+            loading="lazy"
           />
         </div>
       </main>
@@ -115,11 +180,11 @@ function App() {
         class="bg-primary text-white px-8 py-16 md:flex md:items-center md:justify-around"
       >
         {/* <div class="grid grid-cols-2 grid-center gap-4 md:w-1/2"> */}
-        <img src={aboutImg} alt="about image" />
+        <img src={aboutImg} alt="about image" loading="lazy" />
         {/* </div> */}
         <div class="mt-8 md:mt-0 md:w-1/2 md:pl-8">
           <h3 class="text-3xl font-bold mb-4">About us</h3>
-          <p class="text-lg leading-relaxed">
+          <p class="text-lg text-left leading-relaxed font-lato">
             Beckstec Solutions is a dynamic and progressive technology company
             based in East Legon, Ghana. We are dedicated to empowering
             businesses with cutting-edge IT solutions that drive growth,
@@ -146,10 +211,15 @@ function App() {
 
       {/* Software Development Services Section */}
       <section id="services" class="px-[10px] md:px-[120px] py-16">
-        <h3 class="text-5xl font-bold mb-8">Our Services</h3>
+        <h3 class="text-3xl font-bold mb-4">Our Services</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv1} class="mb-4" alt="Software Development" />
+            <img
+              src={serv1}
+              class="mb-4"
+              alt="Software Development"
+              loading="lazy"
+            />
             <h4 class="text-xl font-bold my-2">Software Development</h4>
             <p class="text-gray-600 mt-2">
               We create online platforms where businesses can sell products or
@@ -160,7 +230,12 @@ function App() {
             {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv2} class="mb-4" alt="Digital Marketing" />
+            <img
+              src={serv2}
+              class="mb-4"
+              alt="Digital Marketing"
+              loading="lazy"
+            />
             <h4 class="text-xl font-bold my-2">Digital Marketing</h4>
             <p class="text-gray-600 mt-2">
               We build and maintain websites. It includes frontend development
@@ -170,7 +245,7 @@ function App() {
             {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
           </div>
           <div class="border p-6 rounded-md shadow-md">
-            <img src={serv3} class="mb-4" alt="Cybersecurity" />
+            <img src={serv3} class="mb-4" alt="Cybersecurity" loading="lazy" />
             <h4 class="text-xl my-2 font-bold">Cybersecurity</h4>
             <ol class="text-gray-600 mt-2">
               <li>Physical Security Integration</li>
@@ -239,10 +314,10 @@ function App() {
         {/*Team Section */}
         <section id="team" class="py-10 bg-primary text-white">
           <div class="flex md:justify-around flex-col md:text-left text-center w-full justify-center md:flex-row mb-8 px-[10px] md:px-[120px]">
-            <div class="flex flex-col items- md:w-[40%] w-full justify-start">
+            <div class="flex flex-col items-center md:w-[40%] w-full justify-center">
               <p class="font-light text-lg mb-2"></p>
               <h2 class="text-4xl md:text-5xl font-bold my-2">
-                Our Team At Beckstec Solutions
+                Our Team 
               </h2>
               <div class="flex justify-center md:justify-start gap-5 mt-5">
                 <div
@@ -275,16 +350,17 @@ function App() {
             </div>
 
             <div class="max-w-xl w-full flex flex-col justify-between my-5 mx-auto bg-white text-black rounded-lg py-12 p-6 shadow">
-              <p class="mb-4 font-semibold text-lg text-justify">
+              <p class="mb-4 font-semibold text-base text-left">
                 {testimonials()[testimonialIndex()].text}
               </p>
               <div class="flex  items-center ">
                 {/* Image */}
-                <div class="flex h-[3rem] w-[3rem] items-center bg-gray-300 rounded-full mr-4">
+                <div class="flex h-[3.5rem] w-[3.5rem] items-center bg-gray-300 rounded-full mr-4">
                   <img
                     class="h-full w-full rounded-full  "
                     src={testimonials()[testimonialIndex()].image}
                     alt="Profile"
+                    loading="lazy"
                   />
                 </div>
                 <div>
@@ -303,23 +379,29 @@ function App() {
             <div class="py-10 w-[90%] md:w-[70%] text-gray-700 rounded-xl m-auto absolute z-20 bg-gray-100">
               <div class="grid grid-cols-2 md:flex justify-around items-center text-center">
                 <div class="flex flex-col items-center">
-                  <img src={stat1} alt="" srcset="" />
-                  <p class="text-3xl md:text-4xl font-black">2</p>
+                  <img src={stat1} alt="" srcset="" loading="lazy" />
+                  <AnimatedCounter targetNumber={2} />
                   <p class="text-sm">Years of Services</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat2} alt="" srcset="" />
-                  <p class="text-3xl md:text-4xl font-black">1</p>
+                  <img src={stat2} alt="" srcset="" loading="lazy" />
+                  <AnimatedCounter targetNumber={1} />
                   <p class="text-sm">Global Offices</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat3} alt="" srcset="" />
-                  <p class="text-3xl md:text-4xl font-black">90%</p>
+                  <img src={stat3} alt="" srcset="" loading="lazy" />
+                  <div class="flex">
+                    <AnimatedCounter targetNumber={90} />
+                    <span class="text-3xl md:text-4xl font-black">%</span>
+                  </div>
                   <p class="text-sm">Customer Retention</p>
                 </div>
                 <div class="flex flex-col items-center">
-                  <img src={stat4} alt="" srcset="" />
-                  <p class="text-3xl md:text-4xl font-black">5+</p>
+                  <img src={stat4} alt="" srcset="" loading="lazy" />
+                  <div class="flex">
+                    <AnimatedCounter targetNumber={5} />
+                    <span class="text-3xl md:text-4xl font-black">+</span>
+                  </div>
                   <p class="text-sm">Projects</p>
                 </div>
               </div>
@@ -331,7 +413,7 @@ function App() {
       <div class="">
         {/* Our DNA Section */}
         <div class="max-w-7xl pt-[300px] md:pt-[200px] mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <h1 class="text-5xl font-bold mb-2 md:mb-8">Our DNA</h1>
+          <h1 class="text-4xl font-bold mb-2 md:mb-6">Our DNA</h1>
 
           <div class="relative grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {/* Dotted line background */}
@@ -343,7 +425,7 @@ function App() {
             {/* Value Cards */}
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Brain class="w-8 h-8 text-gray-600" />
+                <Brain class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Adaptability</h2>
               <p class="text-gray-600">
@@ -354,7 +436,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Shield class="w-8 h-8 text-gray-600" />
+                <Shield class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Integrity</h2>
               <p class="text-gray-600">
@@ -364,7 +446,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Award class="w-8 h-8 text-gray-600" />
+                <Award class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Excellence</h2>
               <p class="text-gray-600">
@@ -374,7 +456,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Heart class="w-8 h-8 text-gray-600" />
+                <Heart class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">
                 Customer-Centric Approach
@@ -387,7 +469,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Lightbulb class="w-8 h-8 text-gray-600" />
+                <Lightbulb class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Innovation</h2>
               <p class="text-gray-600">
@@ -398,7 +480,7 @@ function App() {
 
             <div class="relative bg-white p-6 rounded-lg text-center z-10">
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
-                <Users class="w-8 h-8 text-gray-600" />
+                <Users class="w-8 h-8 text-orange-600" />
               </div>
               <h2 class="text-xl font-semibold mb-2">Collaboration</h2>
               <p class="text-gray-600">
@@ -443,7 +525,7 @@ function App() {
       <div class="">
         {/* Join Our Team Section */}
         <section class="py-20 pt-[50px] md:pt-[100px] text-center bg-gray-50">
-          <h2 class="text-5xl md:text-7xl font-bold mb-4">Join Our Team</h2>
+          <h2 class="text-5xl md:text-5xl font-bold mb-4">Join Our Team</h2>
           <p class="text-gray-600 text-lg font-normal md:text-xl mb-8">
             Ready for a new challenge? join our innovative team and be part of
             something amazing!
@@ -460,7 +542,7 @@ function App() {
       {/* Floating Button */}
       <div class="fixed z-50 md:origin-center md:rotate-[270deg] right-4 md:right-[-2rem] bottom-4 md:bottom-auto md:top-1/2 transform md:-translate-y-1/2">
         <a
-          href="#quote"
+          href="#welcome"
           class="block bg-black text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-gray-800"
         >
           Get a Quote →
