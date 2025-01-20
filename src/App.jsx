@@ -143,7 +143,7 @@ function App() {
       {/* Hero Section */}
       <main
         id="welcome"
-        class="md:px-[150px] flex flex-col items-center justify-between text-center px-8 pt-[150px] pb-16 md:flex-row sm:justify-between  "
+        class="flex flex-col items-center justify-between text-center pt-[150px] pb-16 md:flex-row sm:justify-between  "
       >
         {/* Text Content */}
         <div class=" order-2 w-full md:w-[50%] md:order-1 max-w-lg flex flex-col justify-center items-center ">
