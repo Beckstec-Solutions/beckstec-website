@@ -101,7 +101,7 @@ function Footer() {
             <li>Digital Marketing</li>
             <li>Mobile Apps</li>
             {/* <li>Accelerators</li> */}
-            <li>Contact Us</li>
+            <li>Cyber Security</li>
           </ul>
         </div>
 
