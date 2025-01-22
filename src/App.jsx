@@ -135,7 +135,21 @@ function App() {
       </div>
     );
   };
-  
+  const SmoothScrollLink = (props) => {
+    const scrollToSection = (e) => {
+      e.preventDefault();
+      const target = document.getElementById(props.to);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    return (
+      <a href={`#${props.to}`} onclick={scrollToSection} class={props.class}>
+        {props.children}
+      </a>
+    );
+  };
 
   return (
     <div class="bg-white">
@@ -541,12 +555,13 @@ function App() {
 
       {/* Floating Button */}
       <div class="fixed z-50 md:origin-center md:rotate-[270deg] right-4 md:right-[-2rem] bottom-4 md:bottom-auto md:top-1/2 transform md:-translate-y-1/2">
-        <a
-          href="#welcome"
-          class="block bg-black text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-gray-800"
-        >
-          Get a Quote →
-        </a>
+                  
+      <SmoothScrollLink
+            to="welcome"
+            class="block bg-black text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-gray-800"
+          >
+            Get a Quote →
+          </SmoothScrollLink>
       </div>
     </div>
   );
