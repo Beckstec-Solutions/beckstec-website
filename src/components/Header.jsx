@@ -1,7 +1,6 @@
 import { createSignal, onMount } from "solid-js";
 import logo from "@assets/logo.png";
 import logoText from "@assets/logotext.png";
-import { Link } from "react-scroll";
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = createSignal(false);
@@ -98,9 +97,8 @@ function Header() {
 
       {/* Mobile Side Drawer */}
       <div
-        class={`fixed top-0 right-0 h-full w-[80%] bg-white shadow-lg z-50 transform transition-transform duration-300 ${
-          mobileMenuOpen() ? "translate-x-0" : "translate-x-full"
-        }`}
+        class={`fixed top-0 right-0 h-full w-[80%] bg-white shadow-lg z-50 transform transition-transform duration-300 ${mobileMenuOpen() ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <button
           class="absolute top-4 right-4 text-gray-700"
