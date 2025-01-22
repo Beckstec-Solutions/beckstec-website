@@ -5,6 +5,21 @@ import twi from "@assets/social/twi.png";
 import lin from "@assets/social/lin.png";
 
 function Footer() {
+  const SmoothScrollLink = (props) => {
+    const scrollToSection = (e) => {
+      e.preventDefault();
+      const target = document.getElementById(props.to);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    return (
+      <a href={`#${props.to}`} onclick={scrollToSection} class={props.class}>
+        {props.children}
+      </a>
+    );
+  };
   return (
     <footer id="contact" class="bg-gray-100">
       <div class="container mx-auto py-10 px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -46,46 +61,34 @@ function Footer() {
           <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
           <ul class="text-gray-600 space-y-2">
             <li>
-              <a href="#about" class=" hover:text-primary">
+              <SmoothScrollLink to="about" class="hover:text-primary">
                 About us
-              </a>
+              </SmoothScrollLink>
             </li>
             <li>
-              <a href="#services" class=" hover:text-primary">
+              <SmoothScrollLink to="services" class="hover:text-primary">
                 Our services
-              </a>
+              </SmoothScrollLink>
             </li>
             <li>
-              <a
-                href="#team"
-                class=" hover:text-primary"
-              >
+              <SmoothScrollLink to="team" class="hover:text-primary">
                 Our Team
-              </a>
+              </SmoothScrollLink>
             </li>
             <li>
-              <a
-                href="#"
-                class=" hover:text-primary"
-              >
+              <SmoothScrollLink to="" class="hover:text-primary">
                 Blogs
-              </a>
+              </SmoothScrollLink>
             </li>
             <li>
-              <a
-                href="#"
-                class=" hover:text-primary"
-              >
+              <SmoothScrollLink to="" class="hover:text-primary">
                 Case Study
-              </a>
+              </SmoothScrollLink>
             </li>
             <li>
-              <a
-                href="#"
-                class=" hover:text-primary"
-              >
+              <SmoothScrollLink to="" class="hover:text-primary">
                 Testimonials
-              </a>
+              </SmoothScrollLink>
             </li>
             {/* <li>
 							Careers <span class="text-orange-500 text-sm font-semibold">we're hiring</span>
