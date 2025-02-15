@@ -2,18 +2,18 @@ import { createSignal, onMount } from "solid-js";
 import logo from "@assets/logo.png";
 import logoText from "@assets/logotext.png";
 import { Link } from "react-scroll";
+import { useLocation, useNavigate } from "@solidjs/router";
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = createSignal(false);
   const [showNavbar, setShowNavbar] = createSignal(true);
   let lastScrollY = window.scrollY;
 
-  // Handle scroll behavior
   const handleScroll = () => {
     if (window.scrollY < lastScrollY || window.scrollY === 0) {
-      setShowNavbar(true); // Show navbar when scrolling up or at the top
+      setShowNavbar(true);
     } else {
-      setShowNavbar(false); // Hide navbar when scrolling down
+      setShowNavbar(false);
     }
     lastScrollY = window.scrollY;
   };
@@ -25,16 +25,31 @@ function Header() {
     };
   });
   const SmoothScrollLink = (props) => {
-    const scrollToSection = (e) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const scrollToSection = () => {
+      setTimeout(() => {
+        const target = document.getElementById(props.to);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 300);
+    };
+
+    const handleClick = (e) => {
       e.preventDefault();
-      const target = document.getElementById(props.to);
-      if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      if (location.pathname !== "/") {
+        navigate("/");
+        setTimeout(scrollToSection, 500);
+      } else {
+        scrollToSection();
       }
     };
 
     return (
-      <a href={`#${props.to}`} onclick={scrollToSection} class={props.class}>
+      <a href={`#${props.to}`} onClick={handleClick} class={props.class}>
         {props.children}
       </a>
     );
@@ -43,15 +58,17 @@ function Header() {
   return (
     <>
       {/* Navbar */}
-      <header class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full py-2 border-b-[0.2rem] border-orange-700 bg-white  px-[10px] md:px-[50px]">
-        <div class="flex items-center">
-          <img
-            src={logo}
-            alt="Beckstec Logo"
-            class="h-10 w-10 md:h-16 md:w-16"
-          />
-          <img src={logoText} alt="Logo text" class="h-10 md:h-12" />
-        </div>
+      <header class=" z-50 flex items-center justify-between w-full py-2 border-b-[0.2rem] border-orange-700 bg-white  px-[10px] md:px-[50px]">
+        <a href="http:/">
+          <div class="flex items-center">
+            <img
+              src={logo}
+              alt="Beckstec Logo"
+              class="h-10 w-10 md:h-16 md:w-16"
+            />
+            <img src={logoText} alt="Logo text" class="h-10 md:h-12" />
+          </div>
+        </a>
         <nav class="hidden md:flex space-x-4">
           <SmoothScrollLink to="about" class="text-gray-700 hover:text-primary">
             About us
@@ -126,34 +143,34 @@ function Header() {
             <img src={logo} alt="Beckstec Logo" class="h-16 w-16" />
             <img src={logoText} alt="Logo text" class="h-12" />
           </div>
-          <a
-            href="#about"
-            onclick={() => setMobileMenuOpen(false)}
+          <SmoothScrollLink
+            to="about"
             class="text-gray-700 hover:text-primary"
+            onClick={() => setMobileMenuOpen(false)}
           >
             About us
-          </a>
-          <a
-            href="#services"
-            onclick={() => setMobileMenuOpen(false)}
+          </SmoothScrollLink>
+          <SmoothScrollLink
+            to="services"
             class="text-gray-700 hover:text-primary"
+            onClick={() => setMobileMenuOpen(false)}
           >
             Our services
-          </a>
-          <a
-            href="#contact"
-            onclick={() => setMobileMenuOpen(false)}
+          </SmoothScrollLink>
+          <SmoothScrollLink
+            to="contact"
             class="text-gray-700 hover:text-primary"
+            onClick={() => setMobileMenuOpen(false)}
           >
             Contact us
-          </a>
-          <a
-            href="#team"
-            onclick={() => setMobileMenuOpen(false)}
+          </SmoothScrollLink>
+          <SmoothScrollLink
+            to="team"
             class="text-gray-700 hover:text-primary"
+            onClick={() => setMobileMenuOpen(false)}
           >
             Our Team
-          </a>
+          </SmoothScrollLink>
         </nav>
       </div>
 
