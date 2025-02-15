@@ -1,10 +1,15 @@
 import { createSignal, onCleanup, onMount, For } from "solid-js";
+import { IoArrowForward } from "react-icons/io5";
 import { motion, useInView } from "framer-motion";
 import aboutImg from "@assets/about.png";
 import bigLogo from "@assets/big_logo.png";
-import serv1 from "@assets/serv1.png";
-import serv2 from "@assets/serv2.png";
-import serv3 from "@assets/serv3.png";
+import { MoveRight } from "lucide-solid";
+import serv1 from "@assets/icon1.png";
+import serv2 from "@assets/icon2.png";
+import serv3 from "@assets/icon3.png";
+import serv4 from "@assets/icon4.png";
+import serv5 from "@assets/icon5.png";
+import serv6 from "@assets/icon6.png";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import mail from "@assets/mail.png";
@@ -20,6 +25,10 @@ import team3 from "@assets/team/Dotse.jpeg";
 import team4 from "@assets/team/Michael.jpg";
 import team5 from "@assets/team/jona.png";
 import team6 from "@assets/team/Timothy.jpg";
+import background from "@assets/welcome.jpg";
+import background2 from "@assets/about.png";
+import background3 from "@assets/mission.png";
+import vector from "@assets/vector.png";
 import {
   Brain,
   Shield,
@@ -34,10 +43,22 @@ import {
 function App() {
   const [testimonialIndex, setTestimonialIndex] = createSignal(0);
   const [email, setEmail] = createSignal("");
+  const [position, setPosition] = createSignal(100);
+
+  let animationFrame;
+
+  const moveText = () => {
+    setPosition((prev) => (prev <= -100 ? 100 : prev - 0.2))
+    animationFrame = requestAnimationFrame(moveText);
+  };
+
+  moveText();
+
+  onCleanup(() => cancelAnimationFrame(animationFrame));
   const [testimonials, setTestimonials] = createSignal([
     {
       text: "Results-driven mechanical engineer and entrepreneur with experience in engineering, human resources, and business management.Proven track record of driving business growth, improving operational efficiency, and leading high- performing teams.",
-      author: "ISAIAH BAJI",
+      author: "Isaiah Baji",
       image: team1,
       role: "Managing Director",
     },
@@ -78,7 +99,6 @@ function App() {
       role: "",
     },
   ]);
-
 
   onMount(() => {
     const interval = setInterval(() => {
@@ -153,186 +173,254 @@ function App() {
 
   return (
     <div class="bg-white">
-      <Header />
       {/* Hero Section */}
-      <main
-        id="welcome"
-        class="flex flex-col items-center justify-between text-center pt-[150px] pb-16 md:flex-row sm:justify-between  "
-      >
-        {/* Text Content */}
-        <div class=" order-2 w-full md:w-[50%] md:order-1 max-w-lg flex flex-col justify-center items-center ">
-          <p class="text-[3rem] md:text-[4rem] font-bold font-lato">
-            Welcome to
-          </p>
-          <div class=" flex flex-col justify-center items-center ">
-            <p class="text-primary text-[5rem] mt-[-2rem] md:mt-[-3rem] font-bold font-lato md:text-[7rem]">
-              Beckstec
-            </p>
-            <p class="mt-[-2rem] md:mt-[-2.5rem] w-full text-right text-gray-800 font-lato text-2xl">
-              solutions
-            </p>
+      <main id="welcome" class="flex text-center  relative w-full h-[100%]">
+        <img
+          src={background}
+          alt="Background Image"
+          loading="lazy"
+          srcset=""
+          class="w-[100%] h-[100%]"
+        />
+        <div class="flex flex-col flex-wrap absolute items-center top-[20%] md:top-[10%] w-full justify-center text-start text-[1.2rem] md:text-[2.5rem] md:w-[50%] font-bold text-white md:pl-10">
+          <div class="flex justify-start !pl-5 text-start items-center w-full">
+            Transforming
           </div>
-          <p class="mt-2 text-gray-800 text-2xl font-lato italic">
-            ...solutions in the digital era
-          </p>
+          <div class="flex justify-start !pl-5 text-start items-center w-full">
+            Businesses,
+          </div>
+          <div class="flex justify-start !pl-5 text-start items-center w-full">
+            Empowering growth
+          </div>
+          <div class="flex justify-start !pl-5 text-start items-center w-full">
+            Through IT Solutions
+          </div>
         </div>
-
-        {/* Logo */}
-        <div class="w-full flex justify-center items-center md:w-[50%] mb-3 md:mt-0 order-1 ">
-          <img
-            src={bigLogo}
-            alt="Logo"
-            class="md:h-[350px] md:w-[350px] h-[220px] w-[220px]"
-            loading="lazy"
-          />
+        <div
+          class="w-full items-center justify-start text-[1rem] md:text-[1.5rem] p-2 text-white absolute bottom-3 italic  md:bottom-5"
+          style={{ transform: `translateX(${position()}%)` }}
+        >
+          ...Solutions in the digital era
         </div>
       </main>
 
       {/* About Us Section */}
-      <section
-        id="about"
-        class="bg-primary text-white px-8 py-16 md:flex md:items-center md:justify-around"
-      >
-        {/* <div class="grid grid-cols-2 grid-center gap-4 md:w-1/2"> */}
-        <img src={aboutImg} alt="about image" loading="lazy" />
-        {/* </div> */}
-        <div class="mt-8 md:mt-0 md:w-1/2 md:pl-8">
-          <h3 class="text-3xl font-bold mb-4">About us</h3>
-          <p class="text-lg text-left leading-relaxed font-lato">
-            Beckstec Solutions is a dynamic and progressive technology company
-            based in East Legon, Ghana. We are dedicated to empowering
-            businesses with cutting-edge IT solutions that drive growth,
-            innovation, and efficiency. With a passion for excellence and a
-            commitment to customer satisfaction, we deliver tailored services
-            and products that meet the unique needs of our clients. Established
-            to bridge the gap between technology and business needs, we have
-            become a trusted partner for organizations across various
-            industries.
-          </p>
-          <p class="text-lg leading-relaxed mt-4">
-            We are proud to have worked with esteemed clients such as:
-          </p>
-          {/* <p class="text-lg leading-relaxed mt-4">
-            We are proud to have worked with esteemed clients such as:
-          </p> */}
-          <ul class="list-disc pl-5 mt-2">
-            <li>Ministry of Foreign Affairs and Regional Integration</li>
-            <li>Zhongmei Engineering Group Limited</li>
-          </ul>
-          {/* <a href="#more" class="inline-block mt-4 text-white underline hover:text-gray-200">More About Us →</a> */}
+      <section id="about" class="flex text-center  relative w-full h-[100%]">
+        <img
+          src={background2}
+          alt="Background Image"
+          loading="lazy"
+          srcset=""
+          class="w-[100%] h-[100%]"
+        />
+        <div class="md:w-[40%] gap-2 absolute right-2 text-white w-[94%] flex flex-col !h-[100%]   justify-center items-center">
+          <div class="flex w-full justify-center items-center text-[1rem] md:text-[1.5rem] lg:text-[2rem] font-bold text-white">
+            About Us
+          </div>
+          <div class="flex w-[100%] items-center text-left p-2 lg:p-5 bg-[#05162293] text-[0.7rem] md:text-[1rem]  lg:text-[1.5rem] font-bold">
+            {/* <div class="flex w-[100%] items-center text-left p-2 lg:p-5 bg-[#07304be4] text-[0.7rem] md:text-[1rem]  lg:text-[1.5rem] font-bold"> */}
+            Beckstec Solutions is your trusted partner in business innovation
+            and growth. We deliver cutting-edge solutions, expertise, and
+            support to help businesses thrive in today's fast-paced landscape.
+            At Beckstec Solutions, our experienced and highly motivated team,
+            many of whom have a personal stake in the company, specify, design,
+            manage, install, train, and support comprehensive solutions that are
+            uniquely customized to meet the distinct needs of our clients.
+          </div>
         </div>
+      </section>
+      {/* Mission Section */}
+      <section
+        id="mission"
+        class="flex text-center  relative w-full lg:h-[90vh] h-[100%]"
+      >
+        <img
+          src={background3}
+          alt="Background Image"
+          loading="lazy"
+          srcset=""
+          class="w-[100%] h-[100%]"
+        />
       </section>
 
       {/* Software Development Services Section */}
-      <section id="services" class="px-[10px] md:px-[120px] py-16">
-        <h3 class="text-3xl font-bold mb-4">Our Services</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="border p-6 rounded-md shadow-md">
-            <img
-              src={serv1}
-              class="mb-4"
-              alt="Software Development"
-              loading="lazy"
-            />
-            <h4 class="text-xl font-bold my-2">Software Development</h4>
-            <p class="text-gray-600 mt-2">
+      <section
+        id="services"
+        class="px-[1rem] bg-[url('/src/assets/servicesbg1.jpg')] bg-cover bg-center bg-no-repeat md:px-[2rem] py-8"
+      >
+        <div class=" w-full justify-center text-center items-center text-white p-3 text-[2rem] font-bold">
+          Our Services
+        </div>
+        <div class="flex flex-col md:flex-row w-full justify-center items-center gap-6">
+          <div class="border-2 border-[#D85A03] w-full md:w-[23%] h-[23rem] lg:h-[25rem] p-6 relative rounded-md">
+            <div class="flex justify-center itcem w-[3rem] h-[3rem]">
+              <img
+                src={serv1}
+                class="w-[100%] h-[100%]"
+                alt="Software Development"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-[1.2rem] flex justify-start items-center p-2 text-white font-bold my-2">
+              Software Development
+            </div>
+            <div class="flex justify-start items-center w-full text-white">
               We create online platforms where businesses can sell products or
               services to customers. we design user-friendly interfaces,
               integrating secure payment gateways, managing product catalogs,
               and optimizing the website for performance and SEO.
-            </p>
-            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
+            </div>
+            <div class="flex justify-start items-center absolute bottom-[1rem]">
+              <a
+                href="/Services/Software-Development"
+                class="text-primary hover:underline justify-start text-[0.9rem] items-center flex gap-1 font-bold mt-4 "
+              >
+                Explore <MoveRight class="w-[1rem]" />
+              </a>
+            </div>
           </div>
-          <div class="border p-6 rounded-md shadow-md">
-            <img
-              src={serv2}
-              class="mb-4"
-              alt="Digital Marketing"
-              loading="lazy"
-            />
-            <h4 class="text-xl font-bold my-2">Digital Marketing</h4>
-            <p class="text-gray-600 mt-2">
-              We build and maintain websites. It includes frontend development
-              (creating user interfaces), backend development (server-side logic
-              and databases), and full-stack development (combining both).
-            </p>
-            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
+          <div class="border-2 border-[#138B44] w-full md:w-[23%] relative h-[20rem] lg:h-[25rem] p-6 rounded-md shadow-md">
+            <div class="flex justify-center itcem w-[3rem] h-[3rem]">
+              <img
+                src={serv2}
+                class="w-[100%] h-[100%]"
+                alt="Digital Marketing"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-[1.2rem] flex justify-start items-center p-2 text-white font-bold my-2">
+              Data Analysis
+            </div>
+            <div class="flex justify-start items-center w-full text-white">
+              Transforming raw data into actionable insights for informed
+              decision-making.
+            </div>
+            <div class="flex justify-start items-center absolute bottom-[1rem]">
+              <a
+                href="/Services/Data-Analytics"
+                class="text-[#138B44] hover:underline justify-start text-[0.9rem] items-center flex gap-1 font-bold mt-4 "
+              >
+                Explore <MoveRight class="w-[1rem]" />
+              </a>
+            </div>
           </div>
-          <div class="border p-6 rounded-md shadow-md">
-            <img src={serv3} class="mb-4" alt="Cybersecurity" loading="lazy" />
-            <h4 class="text-xl my-2 font-bold">Cybersecurity</h4>
-            <ol class="text-gray-600 mt-2">
-              <li>Physical Security Integration</li>
-              <li>Application Security</li>
-              <li>Digital Forensics</li>
-              <li>Cloud Security</li>
-              <li>Vulnerability Assessment and Penetration Testing (VAPT)</li>
-            </ol>
-            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
+          <div class="border-2 border-[#898E07] w-full md:w-[23%] relative h-[20rem] lg:h-[25rem] p-6 rounded-md shadow-md">
+            <div class="flex justify-center itcem w-[3rem] h-[3rem]">
+              <img
+                src={serv3}
+                class="w-[100%] h-[100%]"
+                alt="Cybersecurity"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-[1.2rem] flex justify-start items-center p-2 text-white font-bold my-2">
+              Cybersecurity
+            </div>
+            <div class="flex justify-start items-center w-full text-white">
+              we provides comprehensive cybersecurity services designed to
+              protect businesses from digital threats, ensuring data
+              confidentiality, integrity, and availability.
+            </div>
+            <div class="flex justify-start items-center absolute bottom-[1rem]">
+              <a
+                href="/Services/Cybersecurity"
+                class="text-[#898E07] hover:underline justify-start text-[0.9rem] items-center flex gap-1 font-bold mt-4 "
+              >
+                Explore <MoveRight class="w-[1rem]" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Digital Marketing Services Section */}
       <section
-        id="digital-services"
-        class="px-[10px] md:px-[120px] py-16 bg-gray-50"
+        id="services 2"
+        class="px-[1rem] bg-[url('src/assets/servicesbg2.png')] bg-cover bg-center bg-no-repeat md:px-[2rem] py-8"
       >
-        {/* <h3 class="text-5xl font-bold text-black mb-8">Digital Marketing Services</h3> */}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="border p-6 rounded-md shadow-md">
-            <h4 class="text-xl font-bold">Software Consulting</h4>
-            <p class="text-gray-600 mt-2">
-              {" "}
+        <div class="flex flex-col md:flex-row w-full justify-center items-center gap-6">
+          <div class="border-2 border-[#FFB6B6] w-full md:w-[23%] relative h-[20rem] lg:h-[25rem] p-6 rounded-md">
+            <div class="flex justify-center itcem w-[3rem] h-[3rem]">
+              <img
+                src={serv4}
+                class="w-[100%] h-[100%]"
+                alt="Software Development"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-[1.2rem] flex justify-start items-center p-2 text-white font-bold my-2">
+              IT Consulting
+            </div>
+            <div class="flex justify-start items-center w-full text-white">
               Offering strategic guidance to align IT infrastructure with
               long-term objectives.
-            </p>
-            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
+            </div>
+            <div class="flex justify-start items-center absolute bottom-[1rem]">
+              <a
+                href="/Services/IT-Consulting"
+                class="text-[#FFB6B6] hover:underline justify-start text-[0.9rem] items-center flex gap-1 font-bold mt-4 "
+              >
+                Explore <MoveRight class="w-[1rem]" />
+              </a>
+            </div>
           </div>
-          <div class="border p-6 rounded-md shadow-md">
-            <h4 class="text-xl font-bold">Data Analysis </h4>
-            <p class="text-gray-600 mt-2">
-              Transforming raw data into actionable insights for informed
-              decision-making.
-            </p>
-            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
+          <div class="border-2 border-[#FFFFFF] w-full md:w-[23%] relative h-[20rem] lg:h-[25rem] p-6 rounded-md shadow-md">
+            <div class="flex justify-center itcem w-[3rem] h-[3rem]">
+              <img
+                src={serv5}
+                class="w-[100%] h-[100%]"
+                alt="Digital Marketing"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-[1.2rem] flex justify-start items-center p-2 text-white font-bold my-2">
+              Marketing and Advertisement
+            </div>
+            <div class="flex justify-start items-center w-full text-white">
+              Amplifying your brand’s reach through expert digital marketing
+              strategies.
+            </div>
+            <div class="flex justify-start items-center absolute bottom-[1rem]">
+              <a
+                href="/Services/Digital-Marketing"
+                class="text-[#FFFFFF] hover:underline justify-start text-[0.9rem] items-center flex gap-1 font-bold mt-4 "
+              >
+                Explore <MoveRight class="w-[1rem]" />
+              </a>
+            </div>
           </div>
-          <div class="border p-6 rounded-md shadow-md">
-            <h4 class="text-xl font-bold">
+          <div class="border-2 border-[#138B44] w-full relative md:w-[23%] h-[20rem] lg:h-[25rem] p-6 rounded-md shadow-md">
+            <div class="flex justify-center itcem w-[3rem] h-[3rem]">
+              <img
+                src={serv6}
+                class="w-[100%] h-[100%]"
+                alt="Cybersecurity"
+                loading="lazy"
+              />
+            </div>
+            <div class="text-[1.2rem] flex justify-start items-center p-2 text-white font-bold my-2">
               Suppliers of IT Equipment and Accessories
-            </h4>
-            <p class="text-gray-600 mt-2">
+            </div>
+            <div class="flex justify-start items-center w-full text-white">
               Offering high-quality IT products to support your infrastructure.
-            </p>
-            {/* <a href="#" class="text-primary mt-4 inline-block">Explore →</a> */}
+            </div>
+            <div class="flex justify-start items-center absolute bottom-[1rem]">
+              <a
+                href="/Services/Suppliers-of-IT-Equipment-and-Accessories"
+                class="text-[#138B44] hover:underline justify-start text-[0.9rem] items-center flex gap-1 font-bold mt-4 "
+              >
+                Explore <MoveRight class="w-[1rem]" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       <div class="">
-        {/* Tools & Technologies Section */}
-        {/* <section class="py-10 bg-gray-100">
-          <h2 class="text-3xl font-bold text-center mb-8">Tools & Technologies</h2>
-          <div class="flex justify-center space-x-4">
-            {["HTML5", "PHP", ".Net", "Angular.js", "Node.js", "Laravel"].map(
-              (tech) => (
-                <div class="text-center">
-                  <div class="h-12 w-12 mb-2 bg-gray-300 rounded"></div>
-                  <p>{tech}</p>
-                </div>
-              )
-            )}
-          </div>
-        </section> */}
-
         {/*Team Section */}
         <section id="team" class="py-10 bg-primary text-white">
           <div class="flex md:justify-around flex-col md:text-left text-center w-full justify-center md:flex-row mb-8 px-[10px] md:px-[120px]">
             <div class="flex flex-col items-center md:w-[40%] w-full justify-center">
               <p class="font-light text-lg mb-2"></p>
-              <h2 class="text-4xl md:text-5xl font-bold my-2">
-                Our Team 
-              </h2>
+              <div class="text-4xl md:text-5xl font-bold my-2">Our Team</div>
               <div class="flex justify-center md:justify-start gap-5 mt-5">
                 <div
                   onclick={() => {
@@ -363,13 +451,13 @@ function App() {
               </div>
             </div>
 
-            <div class="max-w-xl w-full flex flex-col justify-between my-5 mx-auto bg-white text-black rounded-lg py-12 p-6 shadow">
+            <div class="max-w-xl w-[90%] flex flex-col justify-between relative my-5 mx-auto bg-white text-black rounded-lg py-12 px-12 shadow">
               <p class="mb-4 font-semibold text-base text-left">
                 {testimonials()[testimonialIndex()].text}
               </p>
               <div class="flex  items-center ">
                 {/* Image */}
-                <div class="flex h-[3.5rem] w-[3.5rem] items-center bg-gray-300 rounded-full mr-4">
+                <div class="flex h-[3rem] w-[3rem] lg:h-[4.5rem] lg:w-[4.5rem] shadow-md absolute top-7 left-[-1rem] lg:left-[-2rem] items-center bg-gray-300 rounded-full mr-4">
                   <img
                     class="h-full w-full rounded-full  "
                     src={testimonials()[testimonialIndex()].image}
@@ -378,13 +466,21 @@ function App() {
                   />
                 </div>
                 <div>
-                  <h3 class="font-bold">
+                  <div class="font-bold text-[#138B44] w-full text-start">
                     {testimonials()[testimonialIndex()].author}
-                  </h3>
-                  <p class="text-sm">
+                  </div>
+                  <div class="text-sm w-full text-start">
                     {testimonials()[testimonialIndex()].role}
-                  </p>
+                  </div>
                 </div>
+              </div>
+              <div class="flex justify-center items-center !w-[3rem] !h-[3rem] absolute bottom-[-1.5rem] right-10">
+                <img
+                  src={vector}
+                  class="w-[100%] h-[100%]"
+                  alt="Software Development"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -427,7 +523,7 @@ function App() {
       <div class="">
         {/* Our DNA Section */}
         <div class="max-w-7xl pt-[300px] md:pt-[200px] mx-auto px-4 py-12 sm:px-6 lg:px-8">
-          <h1 class="text-4xl font-bold mb-2 md:mb-6">Our DNA</h1>
+          <div class="text-4xl font-bold mb-2 md:mb-6">Our DNA</div>
 
           <div class="relative grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {/* Dotted line background */}
@@ -441,7 +537,7 @@ function App() {
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
                 <Brain class="w-8 h-8 text-orange-600" />
               </div>
-              <h2 class="text-xl font-semibold mb-2">Adaptability</h2>
+              <div class="text-xl font-semibold mb-2">Adaptability</div>
               <p class="text-gray-600">
                 Adapting to the strings of trends with our novel bag of
                 strategies.
@@ -452,7 +548,7 @@ function App() {
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
                 <Shield class="w-8 h-8 text-orange-600" />
               </div>
-              <h2 class="text-xl font-semibold mb-2">Integrity</h2>
+              <div class="text-xl font-semibold mb-2">Integrity</div>
               <p class="text-gray-600">
                 We uphold transparency, honesty, and ethical practices.
               </p>
@@ -462,7 +558,7 @@ function App() {
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
                 <Award class="w-8 h-8 text-orange-600" />
               </div>
-              <h2 class="text-xl font-semibold mb-2">Excellence</h2>
+              <div class="text-xl font-semibold mb-2">Excellence</div>
               <p class="text-gray-600">
                 we always strive for the highest standards of quality in every
               </p>
@@ -472,9 +568,9 @@ function App() {
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
                 <Heart class="w-8 h-8 text-orange-600" />
               </div>
-              <h2 class="text-xl font-semibold mb-2">
+              <div class="text-xl font-semibold mb-2">
                 Customer-Centric Approach
-              </h2>
+              </div>
               <p class="text-gray-600">
                 we Prioritise our clients' needs and deliver solutions that
                 exceed their expectations
@@ -485,7 +581,7 @@ function App() {
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
                 <Lightbulb class="w-8 h-8 text-orange-600" />
               </div>
-              <h2 class="text-xl font-semibold mb-2">Innovation</h2>
+              <div class="text-xl font-semibold mb-2">Innovation</div>
               <p class="text-gray-600">
                 We Embrace creativity to solve challenges and deliver
                 exceptional solutions.
@@ -496,7 +592,7 @@ function App() {
               <div class="mx-auto w-16 h-16 mb-4 rounded-full border-2 border-gray-100 flex items-center justify-center">
                 <Users class="w-8 h-8 text-orange-600" />
               </div>
-              <h2 class="text-xl font-semibold mb-2">Collaboration</h2>
+              <div class="text-xl font-semibold mb-2">Collaboration</div>
               <p class="text-gray-600">
                 We foster teamwork to achieve shared success.
               </p>
@@ -508,9 +604,9 @@ function App() {
             <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
               <img src={mail} alt="Newsletter" class="w-32 h-auto" />
               <div class="md:pl-12 text-center md:text-left text-white">
-                <h2 class="text-3xl font-bold mb-6">
+                <div class="text-3xl font-bold mb-6">
                   Subscribe to our newsletter and get the latest updated.
-                </h2>
+                </div>
                 <form
                   onSubmit={() => {}}
                   class="flex flex-col sm:flex-row gap-4 items-center p-6 bg-gray-100 rounded-lg shadow-md max-w-lg"
@@ -539,7 +635,7 @@ function App() {
       <div class="">
         {/* Join Our Team Section */}
         <section class="py-20 pt-[50px] md:pt-[100px] text-center bg-gray-50">
-          <h2 class="text-5xl md:text-5xl font-bold mb-4">Join Our Team</h2>
+          <div class="text-5xl md:text-5xl font-bold mb-4">Join Our Team</div>
           <p class="text-gray-600 text-lg font-normal md:text-xl mb-8">
             Ready for a new challenge? join our innovative team and be part of
             something amazing!
@@ -548,20 +644,16 @@ function App() {
             Careers →
           </button>
         </section>
-
-        {/* Footer Section */}
-        <Footer />
       </div>
 
       {/* Floating Button */}
       <div class="fixed z-50 md:origin-center md:rotate-[270deg] right-4 md:right-[-2rem] bottom-4 md:bottom-auto md:top-1/2 transform md:-translate-y-1/2">
-                  
-      <SmoothScrollLink
-            to="welcome"
-            class="block bg-black text-white text-sm font-semibold py-2 px-4 rounded-md hover:bg-gray-800"
-          >
-            Get a Quote →
-          </SmoothScrollLink>
+        <SmoothScrollLink
+          to="welcome"
+          class="block bg-white text-primary shadow-md text-sm font-semibold py-2 px-4 rounded-md hover:bg-gray-800"
+        >
+          Get a Quote →
+        </SmoothScrollLink>
       </div>
     </div>
   );
